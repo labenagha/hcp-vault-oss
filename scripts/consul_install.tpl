@@ -18,10 +18,16 @@ export AWS_ACCESS_KEY_ID="${aws_access_key_id}"
 export AWS_SECRET_ACCESS_KEY="${aws_secret_access_key}"
 export AWS_DEFAULT_REGION="${aws_default_region}"
 
-echo "node_name=${node_name}"
-echo "datacenter=${datacenter}"
-echo "bootstrap_expect=${bootstrap_expect}"
-echo "ec2_instance_metadata_url=${ec2_instance_metadata_url}"
+node_name="${node_name}"
+datacenter="${datacenter}"
+bootstrap_expect="${bootstrap_expect}"
+ec2_instance_metadata_url="${ec2_instance_metadata_url}"
+
+# Ensure all required variables are set
+if [[ -z "$node_name" || -z "$datacenter" || -z "$bootstrap_expect" || -z "$instance_ip_address" ]]; then
+  echo "Error: One or more required variables are not set." >&2
+  exit 1
+fi
 
 # Create directory for Consul
 sudo mkdir -p /usr/local/bin/consul
